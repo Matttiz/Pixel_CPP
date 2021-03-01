@@ -1,5 +1,5 @@
 #include <QtCore/QCoreApplication>
-#include <QString>
+//#include <QString>
 #include <QTextStream>
 #include <vector>
 
