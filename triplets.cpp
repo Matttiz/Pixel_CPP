@@ -1,20 +1,55 @@
 #include "triplets.h"
+#include "pixel.h"
 
-Triplet::Triplet(XColor color){
-    this->color = color;
-    number = 0;
+Triplet::Triplet(Pixel pixel){
+    this->red=pixel.getRed();
+    this->green=pixel.getGreen();
+    this->blue=pixel.getBlue();
+    this->number = 0;
 }
 
 Triplet::Triplet(){
-    this->color = *new XColor();
-    number = 0;
+    this->red=0;
+    this->green=0;
+    this->blue=0;
+    this->number = 0;
 }
 
+
+
 bool Triplet::operator == (Triplet triplet){
-  return (this->color.red == triplet.color.red
-              && this->color.green == triplet.color.green
-              && this->color.blue == triplet.color.blue);
+  return (this->red == triplet.red
+              && this->green == triplet.green
+              && this->blue == triplet.blue);
 }
+
+void Triplet::operator ++ (){
+    number++;
+}
+
+void Triplet::operator ++ (int){
+    number++;
+}
+
+int Triplet::getRed(){
+    return red;
+}
+
+int Triplet::getGreen(){
+    return green;
+}
+
+int Triplet::getBlue(){
+    return blue;
+}
+
+int Triplet::getNumber(){
+    return number;
+}
+//XColor Triplet::getColor(){
+//    return this->color;
+//}
+
 
 
 

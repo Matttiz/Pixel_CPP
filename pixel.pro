@@ -12,6 +12,7 @@ CONFIG += console
 SOURCES += \
         displayer.cpp \
         main.cpp \
+        mostoftencolor.cpp \
         pixel.cpp \
         screener.cpp \
         triplets.cpp
@@ -29,6 +30,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     displayer.h \
+    mostoftencolor.h \
     pixel.h \
     screener.h \
     triplets.h
