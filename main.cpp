@@ -1,16 +1,20 @@
 #include <QtCore/QCoreApplication>
 #include <QString>
 #include <QTextStream>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
 #include <vector>
+#include<stdlib.h>
 #include <displayer.h>
 #include <screener.h>
 #include <triplets.h>
 #include <pixel.h>
-#include<stdlib.h>
+#include <algorithm>
+#include <chrono>
+#include <iostream>
+
 
 using namespace std;
+using namespace std::chrono;
+
 
 int main(int argc, char *argv[])
 {
@@ -26,29 +30,42 @@ int main(int argc, char *argv[])
     int red;
     int green;
     int blue;
-    int sampleWidth = 10;
-    int sampleHeight = 10;
+    int sampleWidth = 30;
+    int sampleHeight = 30;
     int widthCheckPoints = width/sampleWidth;
     int heightCheckPoints = height/sampleHeight;
 
 
     vector <Triplet> mytriplets;
+    Triplet triplet = *new Triplet();
+
+    mytriplets.push_back(triplet);
+
+    cout << "Time taken by function: "<<Qt::endl;
+    auto start = high_resolution_clock::now();
 
     for (int iwidth = 0; iwidth < widthCheckPoints; iwidth++){
         for (int iheight = 0; iheight < heightCheckPoints; iheight++){
             Pixel pixel = Pixel(d,screener->getImage(), iwidth, iheight);
-
+            find(mytriplets.begin(), mytriplets.end(), pixel);
             red = pixel.getRed();
             green= pixel.getGreen();
             blue = pixel.getBlue();
 
+
 //            XColor x = pixel.getColor();
 
 
-            cout << red << " " << green << " " << blue << "\n";
+//            cout << red << " " << green << " " << blue << "\n";
         }
     }
     XFree (screener->getImage());
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by function: "
+             << duration.count() << " microseconds" << Qt::endl;
+
     cout << "Koniec" << Qt::endl;
     return 0;
 }
