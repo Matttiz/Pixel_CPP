@@ -1,7 +1,7 @@
 #ifndef DISPLAYER_H
 #define DISPLAYER_H
+
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
 
 class Displayer
 {

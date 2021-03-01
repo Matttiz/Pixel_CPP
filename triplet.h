@@ -1,6 +1,6 @@
-#ifndef TRIPLETS_H
-#define TRIPLETS_H
-#include <X11/Xlib.h>
+#ifndef TRIPLET_H
+#define TRIPLET_H
+//#include <X11/Xlib.h>
 #include <vector>
 #include "pixel.h"
 
@@ -18,13 +18,10 @@ class Triplet{
         int getBlue();
         int getNumber();
     private:
-//        XColor color;
         int number;
-
         int red;
         int green;
         int blue;
-
 };
 
-#endif // TRIPLETS_H
+#endif // TRIPLET_H

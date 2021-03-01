@@ -1,5 +1,4 @@
-#include "triplets.h"
-#include "pixel.h"
+#include "triplet.h"
 
 Triplet::Triplet(Pixel pixel){
     this->red=pixel.getRed();
@@ -14,8 +13,6 @@ Triplet::Triplet(){
     this->blue=0;
     this->number = 0;
 }
-
-
 
 bool Triplet::operator == (Triplet triplet){
   return (this->red == triplet.red
@@ -46,10 +43,3 @@ int Triplet::getBlue(){
 int Triplet::getNumber(){
     return number;
 }
-//XColor Triplet::getColor(){
-//    return this->color;
-//}
-
-
-
-
