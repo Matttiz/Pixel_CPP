@@ -7,7 +7,7 @@ CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
         choosencolorinrgb.cpp \
@@ -15,13 +15,19 @@ SOURCES += \
         main.cpp \
         mostoftencolor.cpp \
         pixel.cpp \
+        request.cpp \
         screenconstans.cpp \
         screener.cpp \
-        triplet.cpp
+        triplet.cpp \
+        tuplet.cpp
 
 TRANSLATIONS += \
     pixel_pl_PL.ts
-LIBS += -lX11
+LIBS += -lX11 \
+        -lboost_system \
+        -lcrypto \
+        -lssl \
+        -lcpprest
 
 
 QMAKE_CXXFLAGS += -lX11
@@ -35,6 +41,8 @@ HEADERS += \
     displayer.h \
     mostoftencolor.h \
     pixel.h \
+    request.h \
     screenconstans.h \
     screener.h \
-    triplet.h
+    triplet.h \
+    tuplet.h

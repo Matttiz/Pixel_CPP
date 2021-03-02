@@ -3,6 +3,8 @@
 //#include <X11/Xlib.h>
 #include <vector>
 #include "pixel.h"
+#include <math.h>
+#include "tuplet.h"
 
 class Triplet{
 
@@ -17,6 +19,7 @@ class Triplet{
         int getGreen();
         int getBlue();
         int getNumber();
+        Tuplet adjustmentToDisplay ();
     private:
         int number;
         int red;
