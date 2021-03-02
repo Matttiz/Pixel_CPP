@@ -35,6 +35,30 @@ HEADERS += \
     displayer.h \
     mostoftencolor.h \
     pixel.h \
+    restc-cpp/Connection.h \
+    restc-cpp/ConnectionPool.h \
+    restc-cpp/DataReader.h \
+    restc-cpp/DataReaderStream.h \
+    restc-cpp/DataWriter.h \
+    restc-cpp/IoTimer.h \
+    restc-cpp/IteratorFromJsonSerializer.h \
+    restc-cpp/RapidJsonReader.h \
+    restc-cpp/RapidJsonWriter.h \
+    restc-cpp/RequestBody.h \
+    restc-cpp/RequestBodyWriter.h \
+    restc-cpp/RequestBuilder.h \
+    restc-cpp/SerializeJson.h \
+    restc-cpp/Socket.h \
+    restc-cpp/Url.h \
+    restc-cpp/error.h \
+    restc-cpp/helper.h \
+    restc-cpp/internals/for_each_member.hpp \
+    restc-cpp/internals/helpers.h \
+    restc-cpp/logging.h \
+    restc-cpp/restc-cpp.h \
+    restc-cpp/test_helper.h \
+    restc-cpp/typename.h \
+    restc-cpp/url_encode.h \
     screenconstans.h \
     screener.h \
     triplet.h
