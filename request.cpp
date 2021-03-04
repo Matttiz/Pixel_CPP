@@ -11,17 +11,24 @@ Request::Request(Tuplet* tuplet)
         *fileStream = outFile;
 
         http_client client(U("http://192.168.2.176/"));
-//        uri_builder builder(U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state"));
+
         float x = tuplet->getFirst();
         float y = tuplet->getSecond();
 
-        std::cout << "first " << x << " Second " << y << std::endl;
+
+
+//        float x = 0.2686812222111111111111112222222;
+//        float y = 0.3054883333333331222222223333;
+
+        std::cout << "first " << std::to_string(x) << " Second " << std::to_string(y) << std::endl;
 
 
         json::value obj = json::value::parse(U("{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }"));
         //        header("Content-Type", "application/json")
         http_headers headers= http_headers();
         headers.add(U("Content-Type"), U("application/json"));
+
+
 
         std::string uri = U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state");
         std::cout << uri << std::endl;
@@ -41,6 +48,7 @@ Request::Request(Tuplet* tuplet)
             // Close the file stream.
             .then([=](size_t)
     {
+        fileStream.get();
         return fileStream->close();
     });
 
