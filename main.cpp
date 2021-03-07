@@ -43,15 +43,18 @@ int main(int argc, char *argv[])
 
     Request req;
 
-    auto start = high_resolution_clock::now();
-    auto stop = high_resolution_clock::now();
+//    auto start = high_resolution_clock::now();
+//    auto stop = high_resolution_clock::now();
 
     do{
+          usleep(50000);
+//                start = high_resolution_clock::now();
+
         originalPixmap = screen->grabWindow(0);
 
         qImage=originalPixmap.toImage();
 
-//        start = high_resolution_clock::now();
+
 
         MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
 
@@ -71,6 +74,7 @@ int main(int argc, char *argv[])
 //        auto duration = duration_cast<microseconds>(stop - start);
 //        std::cout << "Time taken by function: "
 //                             << duration.count() << " microseconds" << "\n";
+
 //        previousImage = qImage;
     }while(true);
 
