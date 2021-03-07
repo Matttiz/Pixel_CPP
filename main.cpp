@@ -32,8 +32,12 @@ int main(int argc, char *argv[])
     QImage previousImage;
     MostOftenColor* mostoftenColor;
 
-    int sampleWidth = 50;
-    int sampleHeight = 50;
+//    int sampleWidth = 20;
+//    int sampleHeight = 20;
+
+
+    int sampleWidth = 100;
+    int sampleHeight = 100;
 
     ScreenConstans* screenConstans = new ScreenConstans(screenres, &sampleHeight, &sampleWidth );
     Tuplet tupletToDisplay;
@@ -47,13 +51,9 @@ int main(int argc, char *argv[])
     auto stop = high_resolution_clock::now();
     int i =0;
 
-    QString initialPath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-    if (initialPath.isEmpty())
-        initialPath = QDir::currentPath();
-
     do{
 
-        usleep(10000);
+        usleep(100000);
         originalPixmap = screen->grabWindow(0);
 
         qImage=originalPixmap.toImage();
@@ -71,7 +71,10 @@ int main(int argc, char *argv[])
 
 
 
-        new Request(&tupletToDisplay);
+//        string  resp = new Request(&tupletToDisplay);
+
+//        new Request(&tupletToDisplay);
+        Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());
 
         mytriplets.clear();
 

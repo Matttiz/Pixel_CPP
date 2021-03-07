@@ -1,117 +1,79 @@
 #include "request.h"
 
-
-//Request::Request(Tuplet* tuplet)
-//{
-
-//    auto fileStream = std::make_shared<ostream>();
-
-//    pplx::task<void>  requestTask = fstream::open_ostream(U("results.html")).then([=](ostream outFile)
-//    {
-//        *fileStream = outFile;
-
-//        http_client client(U("http://192.168.2.176/"));
-
-//        float x = tuplet->getFirst();
-//        float y = tuplet->getSecond();
-
-
-
-////        float x = 0.2686812222111111111111112222222;
-////        float y = 0.3054883333333331222222223333;
-
-//        std::cout << "first " << std::to_string(x) << " Second " << std::to_string(y) << std::endl;
-
-
-//        json::value obj = json::value::parse(U("{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }"));
-//        //        header("Content-Type", "application/json")
-//        http_headers headers= http_headers();
-//        headers.add(U("Content-Type"), U("application/json"));
-
-
-
-//        std::string uri = U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state");
-//        std::cout << uri << std::endl;
-//        return client.request(methods::PUT, uri,obj);
-//    })
-
-//            // Handle response headers arriving.
-//            .then([=](http_response response)
-//    {
-//        printf("Received response status code:%u\n", response.status_code());
-
-
-//        // Write response body into the file.
-//        return response.body().read_to_end(fileStream->streambuf());
-//    })
-
-//            // Close the file stream.
-//            .then([=](size_t)
-//    {
-//        fileStream.get();
-//        return fileStream->close();
-//    });
-
-//    // Wait for all the outstanding I/O to complete and handle any exceptions
-//    try
-//    {
-//        requestTask.wait();
-//    }
-//    catch (const std::exception &e)
-//    {
-//        printf("Error exception:%s\n", e.what());
-//    }
-
-//}
+//using namespace std;
+using namespace boost;
 
 Request::Request(float x, float y){
-auto fileStream = std::make_shared<ostream>();
+    auto fileStream = std::make_shared<ostream>();
 
-pplx::task<void>  requestTask = fstream::open_ostream(U("results.html")).then([=](ostream outFile)
-{
-    *fileStream = outFile;
+//    float x = tuplet->getFirst();
+//    float y = tuplet->getSecond();
 
-    http_client client(U("http://192.168.2.176/"));
-//        uri_builder builder(U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state"));
-
-    std::cout << "first " << x << " Second " << y << std::endl;
-
-
-    json::value obj = json::value::parse(U("{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }"));
-    //        header("Content-Type", "application/json")
-    http_headers headers= http_headers();
-    headers.add(U("Content-Type"), U("application/json"));
-
-    std::string uri = U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state");
-    std::cout << uri << std::endl;
-    return client.request(methods::PUT, uri,obj);
-})
-
-        // Handle response headers arriving.
-        .then([=](http_response response)
-{
-    printf("Received response status code:%u\n", response.status_code());
+    if(x<0.0 || x>1.0){
+        std::cout << x  << " x isn't correct" << '\n';
+    }
+    if(y<0.0 || y>1.0){
+        std::cout << y << " y isn't correct" << '\n';
+    }
+    std::cout << "x is "<< x << '\n';
+    std::cout << "y is "<< y << '\n';
 
 
-    // Write response body into the file.
-    return response.body().read_to_end(fileStream->streambuf());
-})
+    std::string xAsString = std::to_string(x);
+    replace_all(xAsString, ",",".");
+    std::string yAsString = std::to_string(y);
+    replace_all(yAsString, ",",".");
+    std::cout << "{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }" << '\n';
+    pplx::task<void>  requestTask = fstream::open_ostream(U("results.html")).then([=](ostream outFile)
+    {
+        *fileStream = outFile;
 
-        // Close the file stream.
-        .then([=](size_t)
-{
-    return fileStream->close();
-});
+        http_client client(U("http://192.168.2.176/"));
+        //        uri_builder builder(U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state"));
 
-// Wait for all the outstanding I/O to complete and handle any exceptions
-try
-{
-    requestTask.wait();
-}
-catch (const std::exception &e)
-{
-    printf("Error exception:%s\n", e.what());
-}
+        std::cout << "first " << x << " Second " << y << std::endl;
+
+
+        json::value obj = json::value::parse(U("{ \"xy\" : [" + xAsString +"," + yAsString +"] }"));
+        //        header("Content-Type", "application/json")
+        http_headers headers= http_headers();
+        headers.add(U("Content-Type"), U("application/json"));
+
+        std::string uri = U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state");
+        std::cout << uri << std::endl;
+        return client.request(methods::PUT, uri,obj);
+    })
+
+            // Handle response headers arriving.
+            .then([=](http_response response)
+    {
+        printf("Received response status code:%u\n", response.status_code());
+
+
+        // Write response body into the file.
+        std::string strea;
+        strea = response.extract_string().get();
+        //    std::ostringstream streamBuffer(&fileStream->streambuf());
+        //    response.body().read_to_end(streamBuffer);
+            std::cout << strea<< std::endl;
+        return response.body().read_to_end(fileStream->streambuf());
+    })
+
+            // Close the file stream.
+            .then([=](size_t)
+    {
+        return fileStream->close();
+    });
+
+    // Wait for all the outstanding I/O to complete and handle any exceptions
+    try
+    {
+        requestTask.wait();
+    }
+    catch (const std::exception &e)
+    {
+        printf("Error exception:%s\n", e.what());
+    }
 }
 
 Request::Request(){
@@ -121,17 +83,123 @@ Request::Request(){
 
 Request::Request(Tuplet* tuplet){
 
-          float x = tuplet->getFirst();
-          float y = tuplet->getSecond();
-            json::value obj = json::value::parse(U("{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }"));
-            auto putJson =  http_client(U("http://192.168.2.176/")).
-                    request(methods::PUT,
-                            uri_builder(U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state")).to_string(),
-                            U("{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }"),
-                            U("application/json")).then([](http_response response) {
-                if (response.status_code() != 200) {
-                    throw std::runtime_error("Returned " + std::to_string(response.status_code()));
-                }
-                    return response.extract_json();
-                });
+    float x = tuplet->getFirst();
+    float y = tuplet->getSecond();
+
+    if(x<0.0 || x>1.0){
+        std::cout << x  << " x isn't correct" << '\n';
+    }
+    if(y<0.0 || y>1.0){
+        std::cout << y << " y isn't correct" << '\n';
+    }
+    std::cout << "x is "<< x << '\n';
+    std::cout << "y is "<< y << '\n';
+
+    std::string xAsString = std::to_string(x);
+    replace_all(xAsString, ",",".");
+    std::string yAsString = std::to_string(y);
+    replace_all(yAsString, ",",".");
+
+    string_t string;
+    json::value obj = json::value::parse(U("{ \"xy\" : [" + std::to_string(x) +"," + std::to_string(y) +"] }"));
+
+    int code;
+    std::string body;
+    string_t bod;
+    auto putJson =  http_client(U("http://192.168.2.176/")).
+            request(methods::PUT,
+                    uri_builder(U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state")).to_string(),
+                    U("{ \"xy\" : [" + xAsString +"," + yAsString +"] }"),
+                    U("application/json")).then([&code, &bod](http_response response) {
+        code = response.status_code();
+        if (code != 200) {
+            throw std::runtime_error("Returned " + std::to_string(code));
+        }
+
+        bod = response.extract_string().get();
+        std::cout << code << '\n';
+        std::cout << bod << '\n';
+        return response.extract_json();
+    });
+    //            try
+    //    {
+    //        requestTask.wait();
+    //    }
+    //    catch (const std::exception &e)
+    //    {
+    //        printf("Error exception:%s\n", e.what());
+    //    }
+    response_code = code;
+    response_body = bod;
 }
+
+
+
+//Request::Request(float x, float y){
+//    string xAsString = to_string(x);
+//    replace_all(xAsString, ",",".");
+//    string yAsString = to_string(y);
+//    replace_all(yAsString, ",",".");
+
+//    int code;
+//    string_t bod;
+
+
+//    http_client(U("http://192.168.2.176/")).request(methods::PUT,
+//                                                    uri_builder(U("/api/68l4z6Au7W-rL3tI3O15XQxlquJWKCYodlolHIdZ/lights/2/state")).to_string(),
+//                                                    U("{ \"xy\" : [" + xAsString +"," + yAsString +"] }"),
+//                                                    U("application/json")).then([&code, &bod](http_response response) {
+//        code = response.status_code();
+//        if (code != 200) {
+//            throw std::runtime_error("Returned " + std::to_string(code));
+//        }
+
+//        bod = response.extract_string().get();
+//        std::cout << code << '\n';
+//        std::cout << bod << '\n';
+//        return response.extract_json();
+//    });
+//    response_code = code;
+//    response_body = bod;
+//}
+
+// Handle response headers arriving.
+//.then([=](http_response response)
+//{
+//    printf("Received response status code:%u\n", response.status_code());
+
+
+//    // Write response body into the file.
+//    std::string strea;
+//    strea = response.extract_string().get();
+//    //    std::ostringstream streamBuffer(&fileStream->streambuf());
+//    //    response.body().read_to_end(streamBuffer);
+//    std::cout << strea<< std::endl;
+//    return response.body().read_to_end(fileStream->streambuf());
+//})
+
+//// Close the file stream.
+//.then([=](size_t)
+//{
+//    return fileStream->close();
+//});
+
+//// Wait for all the outstanding I/O to complete and handle any exceptions
+//try
+//{
+//requestTask.wait();
+//}
+//catch (const std::exception &e)
+//{
+//    printf("Error exception:%s\n", e.what());
+//}
+//}
+
+//string_t Request::getResponseBody(){
+//    return response_body;
+//}
+
+//int Request::getResponseCode(){
+//    return response_code;
+//}
+
