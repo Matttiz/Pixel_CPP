@@ -11,13 +11,13 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 SOURCES += \
         choosencolorinrgb.cpp \
-        displayer.cpp \
+        jsoncpprest.cpp \
         main.cpp \
         mostoftencolor.cpp \
         pixel.cpp \
         request.cpp \
+        response.cpp \
         screenconstans.cpp \
-        screener.cpp \
         triplet.cpp \
         tuplet.cpp
 
@@ -38,11 +38,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     choosencolorinrgb.h \
-    displayer.h \
+    jsoncpprest.h \
     mostoftencolor.h \
     pixel.h \
     request.h \
+    response.h \
     screenconstans.h \
-    screener.h \
     triplet.h \
     tuplet.h
