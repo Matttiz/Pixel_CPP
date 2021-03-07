@@ -11,13 +11,13 @@ private:
     int widthCheckPoints;
     int heightCheckPoints;
 public:
-    ScreenConstans(int height, int width, int sampleHeight, int sampleWidth);
-    int getHeight();
-    int getWidth();
-    int getSampleWidth();
-    int getSampleHeight();
-    int getWidthCheckPoints();
-    int getHeihtCheckPoints();
+    ScreenConstans(int *height, int* width, int* sampleHeight, int *sampleWidth);
+    int *getHeight();
+    int *getWidth();
+    int *getSampleWidth();
+    int *getSampleHeight();
+    int *getWidthCheckPoints();
+    int *getHeihtCheckPoints();
 };
 
 #endif // SCREENCONSTANS_H

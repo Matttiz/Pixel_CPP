@@ -1,9 +1,13 @@
 #include "pixel.h"
 
-Pixel::Pixel(Display *display,XImage* image, int width, int height)
+Pixel::Pixel(Display *display,XImage* image, int* width, int* height)
 {
-    color.pixel = XGetPixel (image, width, height);
+    color.pixel = XGetPixel (image, *width, *height);
     XQueryColor (display, XDefaultColormap(display, XDefaultScreen (display)), &color);
+}
+
+Pixel::Pixel(){
+
 }
 
 XColor Pixel::getColor(){

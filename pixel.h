@@ -7,7 +7,8 @@ private:
     XColor color;
     Display *display;
 public:
-    Pixel(Display *display,XImage* image, int width, int height);
+    Pixel(Display *display,XImage* image, int *width, int* height);
+    Pixel();
     bool operator == (Pixel pixel);
     XColor getColor();
     int getRed();

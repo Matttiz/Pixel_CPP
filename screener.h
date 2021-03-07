@@ -6,12 +6,12 @@
 class Screener
 {
 public:
-    Screener(Display *display, int width, int height);
+    Screener(Display *display, int *width, int *height);
     XImage *getImage();
 private:
     XImage *image=new XImage();
-    int width;
-    int height;
+    int* width;
+    int* height;
 };
 
 #endif // SCREENER_H
