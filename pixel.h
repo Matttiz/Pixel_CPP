@@ -1,16 +1,19 @@
 #ifndef PIXEL_H
 #define PIXEL_H
-#include <X11/Xutil.h>
+//#include <X11/Xutil.h>
+#include <QImage>
+#include <QPixelFormat>
 
 class Pixel{
 private:
-    XColor color;
-    Display *display;
+    int red;
+    int green;
+    int blue;
+
 public:
-    Pixel(Display *display,XImage* image, int *width, int* height);
+    Pixel(QImage *image, int *width, int* height);
     Pixel();
     bool operator == (Pixel pixel);
-    XColor getColor();
     int getRed();
     int getGreen();
     int getBlue();

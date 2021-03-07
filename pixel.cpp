@@ -1,32 +1,35 @@
 #include "pixel.h"
 
-Pixel::Pixel(Display *display,XImage* image, int* width, int* height)
+Pixel::Pixel(QImage* image, int* width, int* height)
 {
-    color.pixel = XGetPixel (image, *width, *height);
-    XQueryColor (display, XDefaultColormap(display, XDefaultScreen (display)), &color);
+
+    QColor rgb = image->pixel(*width,*height);
+    rgb.getRgb(&red,&green,&blue);
+    if(red>256 || green > 256 || blue > 256){
+        return;
+    }
 }
 
 Pixel::Pixel(){
-
+    red=0;
+    green=0;
+    blue=0;
 }
 
-XColor Pixel::getColor(){
-    return color;
-}
 
 int Pixel::getRed(){
-    return (int) color.red/256;
+    return red;
 }
 
 int Pixel::getGreen(){
-    return (int) color.green/256;
+    return green;
 }
 int Pixel::getBlue(){
-    return (int) color.blue/256;
+    return blue;
 }
 
 bool Pixel::operator == (Pixel pixel){
-    return (this->color.red == pixel.color.red
-            && this->color.green == pixel.color.green
-            && this->color.blue == pixel.color.blue);
+    return (red == pixel.red
+            && green == pixel.green
+            && blue == pixel.blue);
 }

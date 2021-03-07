@@ -3,9 +3,9 @@
 
 using std::vector;
 
-MostOftenColor::MostOftenColor(Display *d, ScreenConstans *screenconstans,Triplet *triplet, vector<Triplet> *mytriplets)
+MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet *triplet, vector<Triplet> *mytriplets)
 {
-    Screener *screener = new Screener(d, screenconstans->getWidth(), screenconstans->getHeight());
+//    Screener *screener = new Screener(d, screenconstans->getWidth(), screenconstans->getHeight());
     Pixel *pixel;
     Triplet trip;
     bool isOnVector = false;
@@ -13,7 +13,7 @@ MostOftenColor::MostOftenColor(Display *d, ScreenConstans *screenconstans,Triple
         for (int iheight = 0; iheight < *(screenconstans->getHeihtCheckPoints()); iheight++){
             isOnVector = false;
 
-            pixel = new Pixel(d,screener->getImage(), &iwidth, &iheight);
+            pixel = new Pixel(d, &iwidth, &iheight);
 
             for(int i=0; i<mytriplets->size(); i++){
                 triplet = &mytriplets->at(i);
@@ -26,11 +26,10 @@ MostOftenColor::MostOftenColor(Display *d, ScreenConstans *screenconstans,Triple
                  trip = *new Triplet(*pixel);
                 trip++;
                 mytriplets->push_back(trip);
-                delete pixel;
 //                delete &trip;
-
             }
+            delete pixel;
         }
     }
-    XFree (screener->getImage());
+//    XFree (screener->getImage());
 }

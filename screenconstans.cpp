@@ -1,21 +1,21 @@
 #include "screenconstans.h"
 
-ScreenConstans::ScreenConstans(int *height, int *width, int *sampleHeight, int *sampleWidth)
+
+ScreenConstans::ScreenConstans(QRect rect, int *sampleHeight, int *sampleWidth)
 {
-    this->height=*height;
-    this->width=*width;
+    this->rect = rect;
     this->sampleHeight = *sampleHeight;
     this->sampleWidth = *sampleWidth;
-    this->heightCheckPoints = (*height)/(*sampleHeight);
-    this->widthCheckPoints = (*width)/(*sampleWidth);
+    this->heightCheckPoints = (rect.height())/(*sampleHeight);
+    this->widthCheckPoints = (rect.width())/(*sampleWidth);
 }
 
-int* ScreenConstans::getHeight(){
-    return &height;
+int ScreenConstans::getHeight(){
+    return rect.height();
 }
 
-int* ScreenConstans::getWidth(){
-    return &width;
+int ScreenConstans::getWidth(){
+    return rect.width();
 }
 
 int* ScreenConstans::getSampleWidth(){

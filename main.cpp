@@ -1,11 +1,11 @@
 #include <QtCore/QCoreApplication>
 //#include <QString>
+#include <QtWidgets>
+#include <QImage>
 #include <QTextStream>
 #include <request.h>
 #include <vector>
 
-#include <displayer.h>
-#include <screener.h>
 #include <triplet.h>
 #include <pixel.h>
 #include <screenconstans.h>
@@ -22,39 +22,47 @@ using namespace std::chrono;
 
 int main(int argc, char *argv[])
 {
-    //    QCoreApplication a(argc, argv);
-    QTextStream cout(stdout);
-    Display *d = XOpenDisplay((char *) NULL);
-    Displayer displayer = *new Displayer(d);
+    QGuiApplication app(argc, argv);
 
-//    MostOftenColor* mostoftenColor;
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenres =screen->geometry();
 
-    int height = displayer.getHeight();
-    int width = displayer.getWidth();
-    int sampleWidth = 200;
-    int sampleHeight = 200;
+    QPixmap originalPixmap;
+    QImage qImage;
+    QImage previousImage;
+    MostOftenColor* mostoftenColor;
 
-    ScreenConstans* screenConstans = new ScreenConstans(&height, &width, &sampleHeight, &sampleWidth );
+    int sampleWidth = 50;
+    int sampleHeight = 50;
+
+    ScreenConstans* screenConstans = new ScreenConstans(screenres, &sampleHeight, &sampleWidth );
     Tuplet tupletToDisplay;
     vector <Triplet> mytriplets;
     Triplet triplet = *new Triplet();
     Triplet choosenTriplet;
 
-    //    Request req;
-//    auto start = high_resolution_clock::now();
-//    auto stop = high_resolution_clock::now();
-//    int i =0;
-    do{
-//        start = high_resolution_clock::now();
-                        usleep(1000);
-        //    mytriplets.push_back(triplet);
-        //    cout << "Time taken by function: "<<Qt::endl;
-        //    auto start = high_resolution_clock::now();
+    Request req;
 
-        MostOftenColor(d,screenConstans,&triplet, &mytriplets);
+    auto start = high_resolution_clock::now();
+    auto stop = high_resolution_clock::now();
+    int i =0;
+
+    QString initialPath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+    if (initialPath.isEmpty())
+        initialPath = QDir::currentPath();
+
+    do{
+
+        usleep(10000);
+        originalPixmap = screen->grabWindow(0);
+
+        qImage=originalPixmap.toImage();
+        //    cout << "Time taken by function: "<<Qt::endl;
+        auto start = high_resolution_clock::now();
+
+        MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
 
         //    auto stop = high_resolution_clock::now();
-
 
 
         ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&mytriplets);
@@ -67,28 +75,36 @@ int main(int argc, char *argv[])
 
         mytriplets.clear();
 
-//        delete displayer;
-        //        delete triplet;
-        //        delete d;
-//        stop = high_resolution_clock::now();
-//        auto duration = duration_cast<microseconds>(stop - start);
-//        cout << "Time taken by function: "
-//                     << duration.count() << " microseconds" << Qt::endl;
-//        if (i %100){
-//            cout << i << Qt::endl;
-//        }
+        stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken by function: "
+                             << duration.count() << " microseconds" << "\n";
+        //        if (i %100){
+        //            cout << i << Qt::endl;
+        //        }
+
+        cout << "The most popular "<< "\n";
+        cout << choosenTriplet.getRed() << " " << choosenTriplet.getGreen() << " " << choosenTriplet.getBlue() << "\n";
+        cout << choosenTriplet.getNumber() << "\n";
+        cout << "Replay " << i << "\n";
+
+        i++;
+
+        previousImage = qImage;
     }while(true);
 
-//    cout << "The most popular "<< Qt::endl;
-//    cout << choosenTriplet.getRed() << " " << choosenTriplet.getGreen() << " " << choosenTriplet.getBlue() << "\n";
-//    cout << choosenTriplet.getNumber() << "\n";
+    cout << "The most popular "<< &Qt::endl;
+    cout << choosenTriplet.getRed() << " " << choosenTriplet.getGreen() << " " << choosenTriplet.getBlue() << "\n";
+    cout << choosenTriplet.getNumber() << "\n";
 
-//    auto duration = duration_cast<microseconds>(stop - start);
-//    cout << "Time taken by function: "
-//                 << duration.count() << " microseconds" << Qt::endl;
+    //    auto duration = duration_cast<microseconds>(stop - start);
+    //    cout << "Time taken by function: "
+    //                 << duration.count() << " microseconds" << Qt::endl;
 
 
-    cout << "Koniec" << Qt::endl;
+    cout << "Koniec" << &Qt::endl;
+
+    //    return app.exec();
     return 0;
 }
 
