@@ -17,12 +17,13 @@ MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet
                 if(triplet->getRed()==pixel->getRed() && triplet->getGreen()==pixel->getGreen() && triplet->getBlue()==pixel->getBlue()){
                     isOnVector = true;
                     mytriplets->at(i)++;
+                    break;
                 }
             }
             if(!isOnVector){
-                 trip = *new Triplet(*pixel);
+                trip = *new Triplet(*pixel);
                 trip++;
-                mytriplets->push_back(trip);
+                mytriplets->push_back(*new Triplet(*pixel));
             }
             delete pixel;
         }

@@ -1,8 +1,6 @@
 #include <QtCore/QCoreApplication>
-//#include <QString>
 #include <QtWidgets>
 #include <QImage>
-#include <QTextStream>
 #include <request.h>
 #include <vector>
 
@@ -12,10 +10,6 @@
 #include <mostoftencolor.h>
 #include <choosencolorinrgb.h>
 
-#include <algorithm>
-#include <chrono>
-
-
 using namespace std;
 using namespace std::chrono;
 
@@ -23,7 +17,6 @@ using namespace std::chrono;
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenres =screen->geometry();
 
@@ -40,44 +33,18 @@ int main(int argc, char *argv[])
     vector <Triplet> mytriplets;
     Triplet triplet = *new Triplet();
     Triplet choosenTriplet;
-
     Request req;
-
-//    auto start = high_resolution_clock::now();
-//    auto stop = high_resolution_clock::now();
-
     do{
-          usleep(50000);
-//                start = high_resolution_clock::now();
-
+        usleep(10000);
         originalPixmap = screen->grabWindow(0);
-
         qImage=originalPixmap.toImage();
-
-
-
         MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
-
-        //    stop = high_resolution_clock::now();
-
         ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&mytriplets);
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
-
-//        string  resp = new Request(&tupletToDisplay);
-//        new Request(&tupletToDisplay);
-
         Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());
         mytriplets.clear();
-
-//        stop = high_resolution_clock::now();
-//        auto duration = duration_cast<microseconds>(stop - start);
-//        std::cout << "Time taken by function: "
-//                             << duration.count() << " microseconds" << "\n";
-
-//        previousImage = qImage;
     }while(true);
 
     return 0;
 }
-
