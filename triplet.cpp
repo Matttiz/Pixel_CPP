@@ -7,6 +7,15 @@ Triplet::Triplet(Pixel pixel){
     this->number = 0;
 }
 
+Triplet::Triplet(int red, int green, int blue){
+    Triplet(*new Pixel(red,green,blue));
+}
+
+Triplet::Triplet(Triplet const &trip){
+    Triplet(*new Pixel(trip.red,trip.green,trip.blue));
+    this->number=trip.number;
+}
+
 Triplet::Triplet(){
     this->red=0;
     this->green=0;
@@ -18,6 +27,22 @@ bool Triplet::operator == (Triplet triplet){
   return (this->red == triplet.red
               && this->green == triplet.green
               && this->blue == triplet.blue);
+}
+
+bool Triplet::operator < (Triplet triplet){
+    if(this->getNumber() < triplet.getNumber()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Triplet::operator > (const Triplet &triplet) const{
+    if(this->number> triplet.number){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 void Triplet::operator ++ (){
@@ -42,6 +67,14 @@ int Triplet::getBlue(){
 
 int Triplet::getNumber(){
     return number;
+}
+
+void Triplet::setNumber(int numb){
+    number=numb;
+}
+
+void Triplet::addNumber(Triplet triplet){
+    this->number+=triplet.getNumber();
 }
 
 Tuplet Triplet::adjustmentToDisplay(){

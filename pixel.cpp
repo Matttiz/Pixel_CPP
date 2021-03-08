@@ -10,7 +10,7 @@ Pixel::Pixel(QImage* image, int* width, int* height)
     }
 }
 
-Pixel::Pixel(){
+Pixel::Pixel(int red, int green, int blue){
     red=0;
     green=0;
     blue=0;

@@ -13,6 +13,7 @@ private:
 public:
     Pixel(QImage *image, int *width, int* height);
     Pixel();
+    Pixel(int red, int green, int blue);
     bool operator == (Pixel pixel);
     int getRed();
     int getGreen();

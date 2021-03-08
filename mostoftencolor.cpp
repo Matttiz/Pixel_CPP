@@ -17,6 +17,7 @@ MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet
                 if(triplet->getRed()==pixel->getRed() && triplet->getGreen()==pixel->getGreen() && triplet->getBlue()==pixel->getBlue()){
                     isOnVector = true;
                     mytriplets->at(i)++;
+                    break;
                 }
             }
             if(!isOnVector){
