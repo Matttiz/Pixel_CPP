@@ -75,28 +75,28 @@ int main(int argc, char *argv[])
         MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
 
         //    stop = high_resolution_clock::now();
-        sort(mytriplets.begin(), mytriplets.end(),greater<Triplet>());
+//        sort(mytriplets.begin(), mytriplets.end(),greater<Triplet>());
 
-        [&mytriplets,&trip]{
-            bool isOnVector = false;
-            for(int i=0; i<mytriplets.size(); i++){
-                Triplet triplet = mytriplets.at(i);
-                Triplet *triplet2 = new Triplet(triplet.getRed()/8,triplet.getBlue()/8,triplet.getGreen()/8);
-                triplet2->setNumber(triplet.getNumber());
+//        [&mytriplets,&trip]{
+//            bool isOnVector = false;
+//            for(int i=0; i<mytriplets.size(); i++){
+//                Triplet triplet = mytriplets.at(i);
+//                Triplet *triplet2 = new Triplet(triplet.getRed()/8,triplet.getBlue()/8,triplet.getGreen()/8);
+//                triplet2->setNumber(triplet.getNumber());
 
-                for(int j=0; j<trip->size(); j++){
-                    triplet = trip->at(j);
-                    if(triplet.getRed()==triplet2->getRed() && triplet.getGreen()==triplet2->getGreen() && triplet.getBlue()==triplet2->getBlue()){
-                        triplet.addNumber(*triplet2);
-                        isOnVector=true;
-                        break;
-                    }
-                }
-                if(!isOnVector){
-                    trip->push_back(*triplet2);
-                }
-            }
-        };
+//                for(int j=0; j<trip->size(); j++){
+//                    triplet = trip->at(j);
+//                    if(triplet.getRed()==triplet2->getRed() && triplet.getGreen()==triplet2->getGreen() && triplet.getBlue()==triplet2->getBlue()){
+//                        triplet.addNumber(*triplet2);
+//                        isOnVector=true;
+//                        break;
+//                    }
+//                }
+//                if(!isOnVector){
+//                    trip->push_back(*triplet2);
+//                }
+//            }
+//        };
 
 
 
@@ -113,8 +113,8 @@ int main(int argc, char *argv[])
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
 
-        //        string  resp = new Request(&tupletToDisplay);
-        //        new Request(&tupletToDisplay);
+//                string  resp = new Request(&tupletToDisplay);
+//                new Request(&tupletToDisplay);
 
         Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());
         mytriplets.clear();

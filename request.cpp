@@ -10,7 +10,7 @@ Request::Request(float x, float y){
     replace_all(xAsString, ",",".");
     std::string yAsString = std::to_string(y);
     replace_all(yAsString, ",",".");
-//    std::cout << "{ \"xy\" : [" + xAsString +"," + yAsString +"] }" << '\n';
+    std::cout << "{ \"xy\" : [" + xAsString +"," + yAsString +"] }" << '\n';
     pplx::task<void>  requestTask = fstream::open_ostream(U("results.html")).then([=](ostream outFile)
     {
         *fileStream = outFile;
@@ -30,7 +30,7 @@ Request::Request(float x, float y){
         // Write response body into the file.
         std::string strea;
         strea = response.extract_string().get();
-//            std::cout << strea<< std::endl;
+            std::cout << strea<< std::endl;
         return response.body().read_to_end(fileStream->streambuf());
     })
 

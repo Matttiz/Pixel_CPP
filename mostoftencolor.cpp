@@ -21,9 +21,9 @@ MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet
                 }
             }
             if(!isOnVector){
-                 trip = *new Triplet(*pixel);
+                trip = *new Triplet(*pixel);
                 trip++;
-                mytriplets->push_back(trip);
+                mytriplets->push_back(*new Triplet(*pixel));
             }
             delete pixel;
         }
