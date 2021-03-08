@@ -38,8 +38,25 @@ int main(int argc, char *argv[])
         usleep(10000);
         originalPixmap = screen->grabWindow(0);
         qImage=originalPixmap.toImage();
-        MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
+        MostOftenColor most =  MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
         ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&mytriplets);
+
+
+//        sort(mytriplets.begin(),mytriplets.end());
+
+//        std::vector<Triplet> trippp = most.getChannels(&mytriplets);
+
+
+//        sort(trippp.begin(),trippp.end());
+
+
+//        ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&trippp);
+
+
+//        chosenColor->getNotChannelColor();
+
+
+
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
         Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());

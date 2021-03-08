@@ -23,9 +23,34 @@ MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet
             if(!isOnVector){
                 trip = *new Triplet(*pixel);
                 trip++;
-                mytriplets->push_back(*new Triplet(*pixel));
+                mytriplets->push_back(trip);
+//                mytriplets->push_back(*new Triplet(*pixel));
             }
             delete pixel;
         }
     }
+}
+
+
+std::vector<Triplet> MostOftenColor::getChannels(std::vector<Triplet> *mytriplets){
+    Triplet triplet;
+    Triplet tripletChannel;
+    vector<Triplet> channelVector;
+    bool isOnVector = false;
+    for(int i=0; i<mytriplets->size(); i++){
+        triplet = mytriplets->at(i);
+        tripletChannel = triplet.setToChannel(8);
+        for(int j = 0; j< channelVector.size();j++){
+            if(channelVector.at(j) == tripletChannel){
+                channelVector.at(j).addNumber(tripletChannel);
+                isOnVector = true;
+                break;
+            }
+        }
+        if(!isOnVector){
+            channelVector.push_back(tripletChannel);
+        }
+        isOnVector = false;
+    }
+    return channelVector;
 }

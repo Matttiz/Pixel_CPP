@@ -14,10 +14,25 @@ Triplet::Triplet(){
     this->number = 0;
 }
 
+Triplet::Triplet(int red, int green, int blue, int number){
+    this->red=red;
+    this->green=green;
+    this->blue=blue;
+    this->number = number;
+}
+
 bool Triplet::operator == (Triplet triplet){
   return (this->red == triplet.red
               && this->green == triplet.green
               && this->blue == triplet.blue);
+}
+
+bool Triplet::operator < (Triplet triplet){
+    if(this->getNumber() < triplet.getNumber()){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 void Triplet::operator ++ (){
@@ -44,13 +59,17 @@ int Triplet::getNumber(){
     return number;
 }
 
-//void Triplet::setNumber(int numb){
-//    number=numb;
-//}
+void Triplet::setNumber(int numb){
+    number=numb;
+}
 
-//void Triplet::addNumber(Triplet triplet){
-//    this->number+=triplet.getNumber();
-//}
+void Triplet::addNumber(Triplet triplet){
+    this->number+=triplet.getNumber();
+}
+
+Triplet Triplet::setToChannel(int number){
+    return Triplet(this->getRed()/number, this->getGreen()/number, this->getBlue()/number, this->getNumber());
+}
 
 Tuplet Triplet::adjustmentToDisplay(){
             float red = (getRed() > 0.04045f) ? (float) pow((getRed() + 0.055f) / (1.0f + 0.055f), 2.4f) : (getRed() / 12.92f);

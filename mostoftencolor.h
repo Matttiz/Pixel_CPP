@@ -11,6 +11,7 @@ class MostOftenColor
 {
 public:
     MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet *triplet, std::vector<Triplet> *mytriplets );
+    std::vector<Triplet> getChannels(std::vector<Triplet> *mytriplets);
 };
 
 #endif // MOSTOFTENCOLOR_H

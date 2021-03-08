@@ -12,6 +12,7 @@ private:
 public:
     ChoosenColorInRGB(vector<Triplet> *mytriplets );
     Triplet* getTheOftenColor();
+    void getNotChannelColor();
 };
 
 #endif // CHOOSENCOLORINRGB_H
