@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     QPixmap originalPixmap;
     QImage qImage;
-    QImage previousImage;
+//    QImage previousImage;
     MostOftenColor* mostoftenColor;
 
     int sampleWidth = 60;
@@ -39,7 +39,12 @@ int main(int argc, char *argv[])
         originalPixmap = screen->grabWindow(0);
         qImage=originalPixmap.toImage();
         MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
+
         ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&mytriplets);
+
+//         sort(mytriplets.begin(), mytriplets.end());
+
+
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
         Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());

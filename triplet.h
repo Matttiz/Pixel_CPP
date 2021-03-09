@@ -10,6 +10,7 @@ class Triplet{
 
     public:
         bool operator == (Triplet triplet);
+//        bool operator < (Triplet triplet1);
         void operator ++ ();
         void operator ++ (int);
         Triplet(Pixel pixel);
