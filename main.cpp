@@ -1,8 +1,6 @@
 #include <QtCore/QCoreApplication>
-//#include <QString>
 #include <QtWidgets>
 #include <QImage>
-#include <QTextStream>
 #include <request.h>
 #include <vector>
 
@@ -29,7 +27,7 @@ int main(int argc, char *argv[])
 
     QPixmap originalPixmap;
     QImage qImage;
-    QImage previousImage;
+//    QImage previousImage;
     MostOftenColor* mostoftenColor;
 
     int sampleWidth = 60;
@@ -58,9 +56,15 @@ int main(int argc, char *argv[])
 
         MostOftenColor(&qImage,screenConstans,&triplet, &mytriplets);
 
+
+
         //    stop = high_resolution_clock::now();
 
         ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&mytriplets);
+
+//         sort(mytriplets.begin(), mytriplets.end());
+
+
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
 

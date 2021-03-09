@@ -20,6 +20,14 @@ bool Triplet::operator == (Triplet triplet){
               && this->blue == triplet.blue);
 }
 
+//bool operator < (Triplet triplet1, Triplet triplet2){
+//    if(triplet1.getNumber() <triplet2.getNumber()){
+//        return true;
+//    }else{
+//        return false;
+//    }
+//};
+
 void Triplet::operator ++ (){
     number++;
 }
