@@ -15,7 +15,6 @@ class Triplet{
         void operator ++ (int);
         Triplet(Pixel pixel);
         Triplet();
-        Triplet(int red, int green, int blue);
         int getRed();
         int getGreen();
         int getBlue();

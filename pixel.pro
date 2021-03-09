@@ -23,8 +23,7 @@ SOURCES += \
 
 TRANSLATIONS += \
     pixel_pl_PL.ts
-LIBS += -lX11 \
-        -lboost_system \
+LIBS +=-lboost_system \
         -lcrypto \
         -lssl \
         -lcpprest

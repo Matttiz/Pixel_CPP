@@ -87,14 +87,6 @@ Request::Request(Tuplet* tuplet){
         std::cout << bod << '\n';
         return response.extract_json();
     });
-    //            try
-    //    {
-    //        requestTask.wait();
-    //    }
-    //    catch (const std::exception &e)
-    //    {
-    //        printf("Error exception:%s\n", e.what());
-    //    }
     response_code = code;
     response_body = bod;
 }

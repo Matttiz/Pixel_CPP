@@ -52,6 +52,14 @@ int Triplet::getNumber(){
     return number;
 }
 
+//void Triplet::setNumber(int numb){
+//    number=numb;
+//}
+
+//void Triplet::addNumber(Triplet triplet){
+//    this->number+=triplet.getNumber();
+//}
+
 Tuplet Triplet::adjustmentToDisplay(){
             float red = (getRed() > 0.04045f) ? (float) pow((getRed() + 0.055f) / (1.0f + 0.055f), 2.4f) : (getRed() / 12.92f);
             float green = (getGreen() > 0.04045f) ? (float) pow((getGreen() + 0.055f) / (1.0f + 0.055f), 2.4f) : (getGreen()/ 12.92f);
