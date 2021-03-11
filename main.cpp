@@ -1,6 +1,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtWidgets>
 #include <QImage>
+#include <QSize>
 #include <request.h>
 #include <vector>
 
@@ -19,6 +20,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenres =screen->geometry();
+    QSize qsize = *new QSize(screenres.center().x()+1,screenres.center().y()+1);
+    screenres.setSize(qsize);
+//    screenres=screenres.
+//    screenres.
 
     QPixmap originalPixmap;
     QImage qImage;
@@ -33,7 +38,7 @@ int main(int argc, char *argv[])
     vector <Triplet> mytriplets;
     Triplet triplet = *new Triplet();
     Triplet choosenTriplet;
-    Request req;
+//    Request req;
     do{
         usleep(10000);
         originalPixmap = screen->grabWindow(0);
@@ -42,25 +47,11 @@ int main(int argc, char *argv[])
         ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&mytriplets);
 
 
-//        sort(mytriplets.begin(),mytriplets.end());
-
-//        std::vector<Triplet> trippp = most.getChannels(&mytriplets);
-
-
-//        sort(trippp.begin(),trippp.end());
-
-
-//        ChoosenColorInRGB *chosenColor = new ChoosenColorInRGB(&trippp);
-
-
-//        chosenColor->getNotChannelColor();
-
-
-
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
         Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());
         mytriplets.clear();
+
     }while(true);
 
     return 0;
