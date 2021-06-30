@@ -10,6 +10,7 @@
 #include <screenconstans.h>
 #include <mostoftencolor.h>
 #include <choosencolorinrgb.h>
+#include <request.h>
 
 using namespace std;
 using namespace std::chrono;
@@ -22,8 +23,7 @@ int main(int argc, char *argv[])
     QRect screenres =screen->geometry();
     QSize qsize = *new QSize(screenres.center().x()+1,screenres.center().y()+1);
     screenres.setSize(qsize);
-//    screenres=screenres.
-//    screenres.
+
 
     QPixmap originalPixmap;
     QImage qImage;
@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
     vector <Triplet> mytriplets;
     Triplet triplet = *new Triplet();
     Triplet choosenTriplet;
+
 //    Request req;
     do{
         usleep(10000);
@@ -49,7 +50,9 @@ int main(int argc, char *argv[])
 
         choosenTriplet = *chosenColor->getTheOftenColor();
         tupletToDisplay = choosenTriplet.adjustmentToDisplay();
-        Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());
+        Request(tupletToDisplay);
+//        Request (tupletToDisplay.getFirst(), tupletToDisplay.getSecond());
+
         mytriplets.clear();
 
     }while(true);

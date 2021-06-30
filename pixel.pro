@@ -16,6 +16,7 @@ SOURCES += \
         mostoftencolor.cpp \
         pixel.cpp \
         request.cpp \
+        requestcpp.cpp \
         response.cpp \
         screenconstans.cpp \
         triplet.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     mostoftencolor.h \
     pixel.h \
     request.h \
+    requestcpp.h \
     response.h \
     screenconstans.h \
     triplet.h \

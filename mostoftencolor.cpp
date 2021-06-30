@@ -9,8 +9,6 @@ MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet
     Triplet trip;
     bool isOnVector = false;
 
-    int ndsa = *screenconstans->getSampleWidth();
-    int ndssaa = *screenconstans->getSampleHeight();
     for (int iwidth = 0; iwidth < screenconstans->getWidth(); iwidth+=*screenconstans->getSampleWidth()){
         for (int iheight = 0; iheight < screenconstans->getHeight(); iheight+=*screenconstans->getSampleHeight()){
             isOnVector = false;
@@ -27,7 +25,6 @@ MostOftenColor::MostOftenColor(QImage *d, ScreenConstans *screenconstans,Triplet
                 trip = *new Triplet(*pixel);
                 trip++;
                 mytriplets->push_back(trip);
-//                mytriplets->push_back(*new Triplet(*pixel));
             }
             delete pixel;
         }
